@@ -1,13 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><style> .o0igqc, .RzdJxc { display: none !important; }</style><style> .twQ0Be, .FGpTBd { display: none !important; }</style><style>.g.mnr-c.g-blk, .e2BEnf.U7izfe, .COEoid { display: none !important; }</style><style>.xpdopen { display: none; }</style><style>div[jsaction*=lightbox] { display: none; }</style><style> #comments { display: none !important; }</style><style>ytd-live-chat-frame#chat { display: none; }</style><style>#watch-discussion, #watch7-discussion, ytd-comments { display: none; }</style>
+<head>
   <meta charset="utf-8">
   <title></title>
-  <link href="style.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: sans-serif;
+      font-size: 20px;
+      background-color: #f5f5f5;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      font-size: 50px;
+      font-weight: normal;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      position: relative;
+    }
+
+    svg {
+      position: relative;
+      top: 35px;
+    }
+
+    #currentTime {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 10px;
+    }
+
+    #lastUpdatedTime {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 10px;
+    }
+
+  </style>
 </head>
 <body>
-  Currency rates:
-  £2 = 50 m/m
+  
+  <h1>Exchange rate = £50 = <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="35pt" height="70pt" viewBox="0 0 176.000000 314.000000" preserveAspectRatio="xMidYMid meet">
+
+    <g transform="translate(0.000000,314.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+    <path d="M788 2630 l-3 -410 -114 335 -114 335 -113 0 -114 0 0 -550 0 -550 75 0 75 0 1 463 1 462 154 -460 154 -460 -2 -437 -3 -438 -114 335 -114 335 -113 0 -114 0 0 -550 0 -550 75 0 75 0 1 463 1 462 154 -460 154 -460 0 -152 0 -153 95 0 95 0 0 218 0 218 134 394 135 395 0 -462 1 -463 75 0 75 0 0 550 0 550 -103 0 -102 0 -107 -312 -107 -313 0 480 -1 481 134 394 135 395 0 -462 1 -463 75 0 75 0 0 550 0 550 -103 0 -102 0 -107 -312 -107 -313 0 388 -1 387 -95 0 -95 0 -2 -410z"/>
+    </g>
+    </svg>
+  
+    <!-- PRICE BELOW -->
+    <span class="price">2</span>
+  
+  </h1>
+
+  <div id="currentTime"></div>
+  <div id="lastUpdatedTime"></div>
+
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+  <script>
+    var currentTime = new Date();
+    var hours = currentTime.getHours();
+    var minutes = currentTime.getMinutes();
+
+    var lastUpdatedTime = new Date();
+    var lastUpdatedHours = lastUpdatedTime.getHours();
+    var lastUpdatedMinutes = lastUpdatedTime.getMinutes();
+
+    var currentTimeDiv = document.getElementById('currentTime');
+    var lastUpdatedTimeDiv = document.getElementById('lastUpdatedTime');
+
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+
+    if (lastUpdatedMinutes < 10) {
+      lastUpdatedMinutes = "0" + lastUpdatedMinutes;
+    }
+
+    if(hours > 11){
+      var suffix = "PM";
+    } else {
+      var suffix = "AM";
+    }
+
+    if(lastUpdatedHours > 11){
+      var lastUpdatedSuffix = "PM";
+    } else {
+      var lastUpdatedSuffix = "AM";
+    }
+
+    if(hours > 12){
+      hours = hours - 12;
+    }
+
+    if(lastUpdatedHours > 12){
+      lastUpdatedHours = lastUpdatedHours - 12;
+    }
+
+    if(hours == 0){
+      hours = 12;
+    }
+
+    if(lastUpdatedHours == 0){
+      lastUpdatedHours = 12;
+    }
+
+    currentTimeDiv.innerHTML = hours + ":" + minutes + " " + suffix;
+    lastUpdatedTimeDiv.innerHTML = "Last updated at: " + lastUpdatedHours + ":" + lastUpdatedMinutes + " " + lastUpdatedSuffix;
+
+    // make it update every minute
+    setInterval(function(){
+      var currentTime = new Date();
+      var hours = currentTime.getHours();
+      var minutes = currentTime.getMinutes();
+
+      var currentTimeDiv = document.getElementById('currentTime');
+
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      }
+
+      if(hours > 11){
+        var suffix = "PM";
+      } else {
+        var suffix = "AM";
+      }
+
+      if(hours > 12){
+        hours = hours - 12;
+      }
+
+      if(hours == 0){
+        hours = 12;
+      }
+
+      currentTimeDiv.innerHTML = hours + ":" + minutes + " " + suffix;
+    }, 10000);
+
+  </script>
+
 </body>
 </html>
